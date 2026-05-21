@@ -1,0 +1,24 @@
+name: CreativeLogger
+version: 1.0.0
+main: com.creativelogger.CreativeLogger
+api-version: '1.21'
+author: CreativeLogger Team
+description: Rastreia, bloqueia e audita itens retirados do modo criativo por staffs
+
+permissions:
+  stafflog.staff:
+    description: Jogador monitorado
+    default: op
+  stafflog.admin:
+    description: Acesso total a comandos + monitorado
+    default: op
+  stafflog.bypass:
+    description: Não sofre bloqueios, ainda é monitorado
+    default: op
+
+commands:
+  stafflog:
+    description: Comando principal do CreativeLogger
+    usage: /<command> <subcomando> [args]
+    aliases: [cl, slog]
+    permission: stafflog.admin

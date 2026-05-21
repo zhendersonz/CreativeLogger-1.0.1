@@ -1,0 +1,60 @@
+# ─── CreativeLogger Config ───
+# Itens proibidos de serem retirados do criativo
+blocked_items:
+  - COMMAND_BLOCK
+  - CHAIN_COMMAND_BLOCK
+  - REPEATING_COMMAND_BLOCK
+  - COMMAND_BLOCK_MINECART
+  - BARRIER
+  - BEDROCK
+  - STRUCTURE_BLOCK
+  - STRUCTURE_VOID
+  - END_PORTAL_FRAME
+  - END_PORTAL
+  - DEBUG_STICK
+  - KNOWLEDGE_BOOK
+  - DRAGON_EGG
+  - JIGSAW
+
+# Itens de alto valor (quantidade mínima para alerta)
+high_value_items:
+  BEACON: 1
+  SHULKER_BOX: 1
+  NETHERITE_INGOT: 1
+  NETHERITE_BLOCK: 1
+  ENCHANTED_GOLDEN_APPLE: 1
+  TOTEM_OF_UNDYING: 1
+  TRIDENT: 1
+  ELYTRA: 1
+  HEART_OF_THE_SEA: 5
+  SPAWNER: 1
+  DRAGON_HEAD: 1
+
+# Rate limit de itens por minuto
+rate_limit:
+  items_per_minute: 64
+
+# Discord Webhook
+discord:
+  enabled: false
+  webhook_url: ""
+  alerts_webhook_url: ""
+  notifications:
+    creative_enter: true
+    item_take: true
+    container_store: true
+    command_use: true
+    high_value_alert: true
+    blocked_alert: true
+
+# Lockdown automático em caso de crash
+lockdown:
+  enabled: true
+
+# Banco de dados
+database:
+  backup_interval_hours: 24
+
+# Itens ignorados para PDC tagging (não recebem marcação)
+ignored_items:
+  - AIR
