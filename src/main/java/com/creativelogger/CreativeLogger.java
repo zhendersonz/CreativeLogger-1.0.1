@@ -88,7 +88,7 @@ public class CreativeLogger extends JavaPlugin {
         playerListener.startInventoryScanner();
 
         getLogger().info("CreativeLogger ativado com sucesso!");
-        getLogger().info("Versão: 1.0.0 | Paper 1.21.4");
+        getLogger().info("Versão: 1.0.1 | Paper 1.21.4");
     }
 
     @Override
