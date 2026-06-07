@@ -85,6 +85,8 @@ public class CreativeLogger extends JavaPlugin {
             });
         }, 40L, 40L);
 
+        playerListener.startInventoryScanner();
+
         getLogger().info("CreativeLogger ativado com sucesso!");
         getLogger().info("Versão: 1.0.0 | Paper 1.21.4");
     }

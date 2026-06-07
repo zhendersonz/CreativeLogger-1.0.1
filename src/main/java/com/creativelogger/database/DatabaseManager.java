@@ -195,6 +195,19 @@ public class DatabaseManager {
         }
     }
 
+    public void reactivateSession(int sessionId) {
+        lock.writeLock().lock();
+        try (PreparedStatement ps = connection.prepareStatement(
+                "UPDATE sessions SET active = 1, end_time = 0 WHERE id = ?")) {
+            ps.setInt(1, sessionId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            plugin.getLogger().warning("Error reactivating session: " + e.getMessage());
+        } finally {
+            lock.writeLock().unlock();
+        }
+    }
+
     public Session getActiveSession(UUID playerUuid) {
         lock.readLock().lock();
         try (PreparedStatement ps = connection.prepareStatement(
@@ -301,6 +314,11 @@ public class DatabaseManager {
     // ─── Session Items ───
 
     public void addSessionItem(SessionItem item) {
+        if (connection == null) {
+            plugin.getLogger().severe("[DB] Connection is null! Cannot insert session item: "
+                    + item.getMaterial() + " x" + item.getAmount() + " sessao #" + item.getSessionId());
+            return;
+        }
         lock.writeLock().lock();
         try (PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO session_items (session_id, material, amount, hash, action, timestamp, blocked) " +
@@ -313,8 +331,13 @@ public class DatabaseManager {
             ps.setLong(6, item.getTimestamp());
             ps.setInt(7, item.isBlocked() ? 1 : 0);
             ps.executeUpdate();
+            plugin.getLogger().info("[DB] Item inserido: " + item.getMaterial()
+                    + " x" + item.getAmount() + " (" + item.getAction() + ") sessao #" + item.getSessionId());
         } catch (SQLException e) {
-            plugin.getLogger().warning("Error adding session item: " + e.getMessage());
+            plugin.getLogger().severe("[DB] Falha ao inserir item " + item.getMaterial()
+                    + " x" + item.getAmount() + " sessao #" + item.getSessionId()
+                    + ": " + e.getMessage());
+            e.printStackTrace();
         } finally {
             lock.writeLock().unlock();
         }
